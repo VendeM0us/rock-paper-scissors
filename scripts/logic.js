@@ -29,3 +29,27 @@ const playARound = (playerSelection, computerSelection) => {
     return "It's a tie!";
   }
 };
+
+const game = () => {
+  let userScore = 0, computerScore = 0;
+
+  for (let i = 0; i < 5; i++) {
+    const userPick = prompt(`Score:\nYou: ${userScore} Computer: ${computerScore}\nType your choice`);
+    const computerPick = getComputerChoice();
+
+    const result = playARound(userPick, computerPick);
+
+    if (result.startsWith("You Win!")) {
+      userScore++;
+    } else if (result.startsWith("You Lose!")) {
+      computerScore++;
+    }
+
+    alert(result);
+  }
+
+  const winner = userScore > computerScore ? "You" : "Computer";
+  alert(`${winner} wins!`);
+};
+
+game();
