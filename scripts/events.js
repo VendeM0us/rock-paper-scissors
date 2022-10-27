@@ -23,12 +23,12 @@ const setTheme = e => {
     case 'light':
       e.target.dataset.theme = 'dark';
       switchToDarkTheme(root);
-      e.target.innerText = "Switch to light theme";
+      e.target.innerText = "Switch to light mode";
       break;
     case 'dark':
       e.target.dataset.theme = 'light';
       switchToLightTheme(root);
-      e.target.innerText = "Switch to dark theme";
+      e.target.innerText = "Switch to dark mode";
       break;
   }
 };
