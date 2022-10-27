@@ -10,16 +10,32 @@
   <script src="https://kit.fontawesome.com/f843330a5d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="score-board">
-    <h2>Scores</h2>
-    <div class="score-board_score-list">
-      <h3>You: <span class="score-user">0</span></h3>
-      <h3>Computer: <span class="score-computer">0</span></h3>
+  <div class="main-game-state">
+    <div class="score-board">
+      <h2>Scores</h2>
+      <div class="score-board_score-list">
+        <h3>You: <span class="score-user">0</span></h3>
+        <h3>Computer: <span class="score-computer">0</span></h3>
+      </div>
     </div>
-  </div>
-  <div class="picks">
-    <div class="pick-frame user-pick"></div>
-    <div class="pick-frame computer-pick"></div>
+    <!--
+      FOR ROCK: <i class="fa-solid fa-hand-back-fist"></i>
+      FOR PAPER: <i class="fa-solid fa-hand"></i>
+      FOR SCISSORS: <i class="fa-solid fa-hand-scissors"></i>
+    -->
+    <div class="picks">
+      <div class="pick-frame user-pick"></div>
+      <div class="pick-frame computer-pick"></div>
+    </div>
+    
+    <div class="choices">
+      <h2>Pick your choices</h2>
+      <div class="choices__buttons">
+        <button class="rock"><i class="fa-solid fa-hand-back-fist"></i><h3>Rock</h3></button>
+        <button class="paper"><i class="fa-solid fa-hand"></i><h3>Paper</h3></button>
+        <button class="scissors"><i class="fa-solid fa-hand-scissors"></i><h3>Scissors</h3></button>
+      </div>
+    </div>
   </div>
 </body>
 </html>
