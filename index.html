@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rock, Paper Scissors</title>
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="events.js" defer></script>
+  <script src="./scripts/events.js" defer></script>
   <script src="https://kit.fontawesome.com/f843330a5d.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <button class="theme" data-theme="light">switch to dark mode</button>
   <div class="main-game-state">
     <div class="score-board">
       <h2>Scores</h2>
@@ -38,6 +39,10 @@
     </div>
 
     <footer>Crafted by: Vendemous</footer>
+  </div>
+  <div class="end-game-state hide-end-state">
+    <h2><span class="winner">#{winner}</span> wins!</h2>
+    <button class="retry">Retry</button>
   </div>
 </body>
 </html>
