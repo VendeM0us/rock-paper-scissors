@@ -37,3 +37,21 @@ html {
   display: flex;
   gap: 3rem;
 }
+
+.picks {
+  width: fit-content;
+  height: fit-content;
+  margin: 2rem auto;
+  display: flex;
+  gap: 6rem;
+}
+.pick-frame {
+  width: 18.75rem;
+  height: 18.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pick-frame > * {
+  font-size: 15rem;
+}
