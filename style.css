@@ -49,7 +49,7 @@ html {
 .pick-frame {
   width: 18.75rem;
   height: 18.75rem;
-  border: 2px dotted var(--eerie-black);
+  border: 2px solid var(--eerie-black);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
