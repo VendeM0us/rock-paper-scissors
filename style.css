@@ -1,0 +1,39 @@
+@font-face {
+  font-family: Tsuki;
+  src: url('./fonts/Tsuki/NineTsuki.otf') format('opentype'),
+       url('./fonts/Tsuki/NineTsukiRegular.ttf') format('truetype');
+}
+
+:root {
+  --main-font: Tsuki;
+  --aero-blue: #BDEED0;
+  --persian-pink: #F991CC;
+  --middle-green: #558564;
+  --french-sky-blue: #71A9F7;
+  --eerie-black: #252627;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--main-font);
+  color: var(--eerie-black);
+}
+
+.score-board {
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+  font-size: 2rem;
+  text-align: center;
+}
+.score-board h2 {
+  margin-bottom: 1rem;
+}
+.score-board_score-list {
+  display: flex;
+  gap: 3rem;
+}
