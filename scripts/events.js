@@ -1,3 +1,17 @@
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
+const getComputerChoice = () => {
+  const picks = ['rock', 'paper', 'scissors'];
+  const randomIndex = getRandomInt(0, picks.length);
+  
+  return picks[randomIndex];
+};
+
 const switchToLightTheme = r => {
   r.style.setProperty('--aero-blue', '#BDEED0');
   r.style.setProperty('--persian-pink', '#F991CC');
@@ -33,7 +47,42 @@ const setTheme = e => {
   }
 };
 
+const getInnerHtml = (player, pick) => {
+  let innerHtml;
+
+  switch (pick) {
+    case 'rock':
+      innerHtml = `<i class="fa-solid fa-hand-back-fist"></i>`;
+      break;
+    case 'paper':
+      innerHtml = `<i class="fa-solid fa-hand"></i>`;
+      break;
+    case 'scissors':
+      innerHtml = `<i class="fa-solid fa-hand-scissors"></i>`;
+      break;
+  }
+
+  innerHtml = innerHtml.concat(`<h2 style="font-size: 2rem;">${player} pick ${pick}</h2>`);
+  return innerHtml;
+}
+
+const setChoice = e => {
+  const userPick = e.currentTarget.getAttribute("class");
+  const computerPick = getComputerChoice();
+
+  const userPickFrame = document.querySelector(".pick-frame.user-pick");
+  userPickFrame.innerHTML = getInnerHtml("You", userPick);
+
+  const computerPickFrame = document.querySelector(".pick-frame.computer-pick");
+  computerPickFrame.innerHTML = getInnerHtml("Computer", computerPick);
+};
+
 window.addEventListener("DOMContentLoaded", e => {
   const changeThemeButton = document.querySelector("button.theme");
   changeThemeButton.addEventListener("click", setTheme);
+
+  const choiceButtons = document.querySelectorAll(".choices__buttons button");
+  choiceButtons.forEach(button => {
+    button.addEventListener("click", setChoice);
+  });
 });
