@@ -138,7 +138,7 @@ const setPickHtml = (player, pick) => {
       break;
   }
 
-  innerHtml = innerHtml.concat(`<h2 style="font-size: 2rem;">${player} pick ${pick}</h2>`);
+  innerHtml = innerHtml.concat(`<h2>${player} pick ${pick}</h2>`);
 
   const div = document.createElement("div");
   div.setAttribute("class", "pick");
