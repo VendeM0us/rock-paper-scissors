@@ -47,7 +47,7 @@ const setTheme = e => {
   }
 };
 
-const getInnerHtml = (player, pick) => {
+const setPickHtml = (player, pick) => {
   let innerHtml;
 
   switch (pick) {
@@ -63,7 +63,17 @@ const getInnerHtml = (player, pick) => {
   }
 
   innerHtml = innerHtml.concat(`<h2 style="font-size: 2rem;">${player} pick ${pick}</h2>`);
-  return innerHtml;
+
+  const div = document.createElement("div");
+  div.setAttribute("class", "pick");
+  div.innerHTML = innerHtml;
+
+  return div;
+}
+
+const setTransitionEnd = e => {
+  if (e.propertyName !== 'transform') return;
+  e.target.classList.remove("pick-animation");
 }
 
 const setChoice = e => {
@@ -71,10 +81,22 @@ const setChoice = e => {
   const computerPick = getComputerChoice();
 
   const userPickFrame = document.querySelector(".pick-frame.user-pick");
-  userPickFrame.innerHTML = getInnerHtml("You", userPick);
+  userPickFrame.innerHTML = "";
+  const userPickFrameInnerDiv = setPickHtml("You", userPick);
+  userPickFrame.appendChild(userPickFrameInnerDiv);
 
   const computerPickFrame = document.querySelector(".pick-frame.computer-pick");
-  computerPickFrame.innerHTML = getInnerHtml("Computer", computerPick);
+  computerPickFrame.innerHTML = "";
+  const computerPickFrameInnerDiv = setPickHtml("Computer", computerPick);
+  computerPickFrame.appendChild(computerPickFrameInnerDiv);
+
+  [userPickFrameInnerDiv, computerPickFrameInnerDiv].forEach(div => {
+    div.addEventListener("transitionend", setTransitionEnd);
+
+    setTimeout(function() {
+      div.classList.add("pick-animation");
+    }, 0);
+  });
 };
 
 window.addEventListener("DOMContentLoaded", e => {

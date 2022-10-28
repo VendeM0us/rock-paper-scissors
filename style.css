@@ -74,12 +74,16 @@ button.theme {
   border: 2px solid var(--eerie-black);
   border-radius: 20px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.pick-frame > * {
+.pick {
   font-size: 15rem;
+  text-align: center;
+  transition: all 0.3s;
+}
+.pick-animation {
+  transform: scale(1.3);
 }
 
 .choices {
