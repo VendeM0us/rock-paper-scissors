@@ -105,23 +105,25 @@ button.theme {
   border: none;
   font-size: 2rem;
   margin: auto 2rem;
-  cursor: pointer;
   transition: all 0.3s;
 }
-.choices__buttons .rock:hover {
+.choices__buttons .rock.hover:hover {
   transform: scale(1.5);
   color: var(--french-sky-blue);
   -webkit-text-stroke: 1px var(--eerie-black);
+  cursor: pointer;
 }
-.choices__buttons .paper:hover {
+.choices__buttons .paper.hover:hover {
   transform: scale(1.5);
   color: var(--middle-green);
   -webkit-text-stroke: 1px var(--eerie-black);
+  cursor: pointer;
 }
-.choices__buttons .scissors:hover {
+.choices__buttons .scissors.hover:hover {
   transform: scale(1.5);
   color: var(--persian-pink);
   -webkit-text-stroke: 1px var(--eerie-black);
+  cursor: pointer;
 }
 
 footer {

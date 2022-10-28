@@ -1,17 +1,3 @@
-const getRandomInt = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-
-  return Math.floor(Math.random() * (max - min) + min);
-};
-
-const getComputerChoice = () => {
-  const picks = ['rock', 'paper', 'scissors'];
-  const randomIndex = getRandomInt(0, picks.length);
-  
-  return picks[randomIndex];
-};
-
 const switchToLightTheme = r => {
   r.style.setProperty('--aero-blue', '#BDEED0');
   r.style.setProperty('--persian-pink', '#F991CC');
@@ -46,16 +32,72 @@ const setTheme = e => {
       break;
   }
 };
+
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
+const getComputerChoice = () => {
+  const picks = ['rock', 'paper', 'scissors'];
+  const randomIndex = getRandomInt(0, picks.length);
+  
+  return picks[randomIndex];
+};
+
+const toggleWinnerBanner = () => {
+  const winnerBanner = document.querySelector(".end-game-state");
+  winnerBanner.classList.toggle("show-end-state");
+};
+
+const toggleBlur = () => {
+  const mainGameState = document.querySelector(".main-game-state");
+  mainGameState.classList.toggle("blur");
+};
+
+const resetScore = () => {
+  const userScoreContainer = document.querySelector(".score-user");
+  const computerScoreContainer = document.querySelector(".score-computer");
+  userScoreContainer.innerText = "0";
+  computerScoreContainer.innerText = "0";
+};
+
+const setPickFrames = (optionalUserPick, optionalComputerPick) => {
+  const userPickFrame = document.querySelector(".pick-frame.user-pick");
+  userPickFrame.innerHTML = "";
+
+  const computerPickFrame = document.querySelector(".pick-frame.computer-pick");
+  computerPickFrame.innerHTML = "";
+
+  if (optionalUserPick && optionalComputerPick) {
+    const userPick = optionalUserPick, computerPick = optionalComputerPick;
+
+    const userPickFrameInnerDiv = setPickHtml("You", userPick);
+    userPickFrame.appendChild(userPickFrameInnerDiv);
+  
+    const computerPickFrameInnerDiv = setPickHtml("Computer", computerPick);
+    computerPickFrame.appendChild(computerPickFrameInnerDiv);
+  
+    [userPickFrameInnerDiv, computerPickFrameInnerDiv].forEach(div => {
+      div.addEventListener("transitionend", setTransitionEnd);
+  
+      setTimeout(function() {
+        div.classList.add("pick-animation");
+      }, 0);
+    });
+  }
+}; 
+
 const setWinnerBanner = (userScore, computerScore) => {
   const winner = userScore > computerScore ? "You" : "Computer";
   const setWinner = document.querySelector(".winner");
   setWinner.innerText = winner;
 
-  const mainGameState = document.querySelector(".main-game-state");
-  mainGameState.classList.add("blur");
-
-  const winnerBanner = document.querySelector(".end-game-state");
-  winnerBanner.classList.add("show-end-state");
+  toggleBlur();
+  toggleWinnerBanner();
+  toggleChoiceButtons();
 };
 
 const handleScoreboard = (userPick, computerPick) => {
@@ -111,56 +153,44 @@ const setTransitionEnd = e => {
 }
 
 const setChoice = e => {
-  const userPick = e.currentTarget.getAttribute("class");
+  // due to hover class the class might sometimes might look like "rock hover"
+  const userPick = e.currentTarget.getAttribute("class").split(" ")[0];
   const computerPick = getComputerChoice();
-
-  const userPickFrame = document.querySelector(".pick-frame.user-pick");
-  userPickFrame.innerHTML = "";
-  const userPickFrameInnerDiv = setPickHtml("You", userPick);
-  userPickFrame.appendChild(userPickFrameInnerDiv);
-
-  const computerPickFrame = document.querySelector(".pick-frame.computer-pick");
-  computerPickFrame.innerHTML = "";
-  const computerPickFrameInnerDiv = setPickHtml("Computer", computerPick);
-  computerPickFrame.appendChild(computerPickFrameInnerDiv);
-
-  [userPickFrameInnerDiv, computerPickFrameInnerDiv].forEach(div => {
-    div.addEventListener("transitionend", setTransitionEnd);
-
-    setTimeout(function() {
-      div.classList.add("pick-animation");
-    }, 0);
-  });
-
+  setPickFrames(userPick, computerPick);
   handleScoreboard(userPick, computerPick);
 };
 
 const restartGame = e => {
-  const userPickFrame = document.querySelector(".pick-frame.user-pick");
-  userPickFrame.innerHTML = "";
-  const computerPickFrame = document.querySelector(".pick-frame.computer-pick");
-  computerPickFrame.innerHTML = "";
+  setPickFrames();
+  resetScore();
+  toggleWinnerBanner();
+  toggleBlur();
+  toggleChoiceButtons();
+};
 
-  const winnerBanner = document.querySelector(".end-game-state");
-  winnerBanner.classList.remove("show-end-state");
-
-  const userScoreContainer = document.querySelector(".score-user");
-  const computerScoreContainer = document.querySelector(".score-computer");
-  userScoreContainer.innerText = "0";
-  computerScoreContainer.innerText = "0";
+const toggleChoiceButtons = () => {
+  const choiceButtons = document.querySelectorAll(".choices__buttons button");
 
   const mainGameState = document.querySelector(".main-game-state");
-  mainGameState.classList.remove("blur");
-};
+  
+  if (mainGameState.classList.contains("blur")) {
+    choiceButtons.forEach(button => {
+      button.removeEventListener("click", setChoice);
+      button.classList.remove("hover");
+    });
+  } else {
+    choiceButtons.forEach(button => {
+      button.addEventListener("click", setChoice);
+      button.classList.add("hover");
+    });
+  }
+}
 
 window.addEventListener("DOMContentLoaded", e => {
   const changeThemeButton = document.querySelector("button.theme");
   changeThemeButton.addEventListener("click", setTheme);
 
-  const choiceButtons = document.querySelectorAll(".choices__buttons button");
-  choiceButtons.forEach(button => {
-    button.addEventListener("click", setChoice);
-  });
+  toggleChoiceButtons();
 
   const retryButton = document.querySelector("button.retry");
   retryButton.addEventListener("click", restartGame);
