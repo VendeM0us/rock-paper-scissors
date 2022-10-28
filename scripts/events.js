@@ -46,6 +46,40 @@ const setTheme = e => {
       break;
   }
 };
+const setWinnerBanner = (userScore, computerScore) => {
+  const winner = userScore > computerScore ? "You" : "Computer";
+  const setWinner = document.querySelector(".winner");
+  setWinner.innerText = winner;
+
+  const mainGameState = document.querySelector(".main-game-state");
+  mainGameState.classList.add("blur");
+
+  const winnerBanner = document.querySelector(".end-game-state");
+  winnerBanner.classList.add("show-end-state");
+};
+
+const handleScoreboard = (userPick, computerPick) => {
+  const userScoreContainer = document.querySelector(".score-user");
+  const computerScoreContainer = document.querySelector(".score-computer");
+  let userScore = Number(userScoreContainer.innerText);
+  let computerScore = Number(computerScoreContainer.innerText);
+
+  const winningPicks = {
+    rock: 'scissors',
+    paper: 'rock',
+    scissors: 'paper'
+  };
+
+  if (userScore < 5 && computerScore < 5) {
+    if (winningPicks[userPick] === computerPick) {
+      userScoreContainer.innerText = String(++userScore);
+    } else if (winningPicks[computerPick] === userPick) {
+      computerScoreContainer.innerText = String(++computerScore);
+    }
+
+    if (userScore === 5 || computerScore === 5) setWinnerBanner(userScore, computerScore);
+  }
+}
 
 const setPickHtml = (player, pick) => {
   let innerHtml;
@@ -97,6 +131,26 @@ const setChoice = e => {
       div.classList.add("pick-animation");
     }, 0);
   });
+
+  handleScoreboard(userPick, computerPick);
+};
+
+const restartGame = e => {
+  const userPickFrame = document.querySelector(".pick-frame.user-pick");
+  userPickFrame.innerHTML = "";
+  const computerPickFrame = document.querySelector(".pick-frame.computer-pick");
+  computerPickFrame.innerHTML = "";
+
+  const winnerBanner = document.querySelector(".end-game-state");
+  winnerBanner.classList.remove("show-end-state");
+
+  const userScoreContainer = document.querySelector(".score-user");
+  const computerScoreContainer = document.querySelector(".score-computer");
+  userScoreContainer.innerText = "0";
+  computerScoreContainer.innerText = "0";
+
+  const mainGameState = document.querySelector(".main-game-state");
+  mainGameState.classList.remove("blur");
 };
 
 window.addEventListener("DOMContentLoaded", e => {
@@ -107,4 +161,7 @@ window.addEventListener("DOMContentLoaded", e => {
   choiceButtons.forEach(button => {
     button.addEventListener("click", setChoice);
   });
+
+  const retryButton = document.querySelector("button.retry");
+  retryButton.addEventListener("click", restartGame);
 });
