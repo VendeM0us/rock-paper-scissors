@@ -45,9 +45,13 @@ button.theme {
 .score-board {
   width: fit-content;
   height: fit-content;
-  margin: auto;
+  margin: 1rem auto;
   font-size: 2rem;
   text-align: center;
+  background-color: var(--aero-blue);
+  padding: 1rem;
+  border: 2px solid var(--eerie-black);
+  border-radius: 10px;
 }
 .score-board h2 {
   margin-bottom: 1rem;
@@ -87,6 +91,8 @@ button.theme {
   padding: 1rem;
   width: fit-content;
   margin: 2rem auto;
+  border: 2px solid var(--eerie-black);
+  border-radius: 20px;
 }
 .choices__buttons button {
   font-family: var(--main-font);
@@ -101,14 +107,17 @@ button.theme {
 .choices__buttons .rock:hover {
   transform: scale(1.5);
   color: var(--french-sky-blue);
+  -webkit-text-stroke: 1px var(--eerie-black);
 }
 .choices__buttons .paper:hover {
   transform: scale(1.5);
   color: var(--middle-green);
+  -webkit-text-stroke: 1px var(--eerie-black);
 }
 .choices__buttons .scissors:hover {
   transform: scale(1.5);
   color: var(--persian-pink);
+  -webkit-text-stroke: 1px var(--eerie-black);
 }
 
 footer {
